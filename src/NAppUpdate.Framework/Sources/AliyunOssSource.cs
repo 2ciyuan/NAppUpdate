@@ -46,9 +46,23 @@ namespace NAppUpdate.Framework.Sources
             return "";
 		}
 
-		public bool GetData(string url, string baseUrl, Action<UpdateProgressInfo> onProgress, ref string tempLocation)
+		public bool GetData(string fileKey, string baseKey, Action<UpdateProgressInfo> onProgress, ref string tempLocation)
 		{
-			return true;
+            try
+            {
+                //aliyun对于"a//b"这样的路径不认，只认"a/b"
+               string fullFileKey = (SourceRoot + "/" + baseKey + "/" + fileKey).Replace("//", "/");
+                AliyunDownloadRequst downloadRequest = new AliyunDownloadRequst(BucketName, fullFileKey
+                    , tempLocation);
+                AliyunTransfer.GetObject(downloadRequest);
+                return true;
+            }
+            catch (Exception)
+            {
+
+            }
+
+            return false;
 		}
 
 		#endregion
