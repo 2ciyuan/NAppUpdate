@@ -8,16 +8,42 @@ namespace NAppUpdate.Framework.Sources
 {
 	public class AliyunOssSource : IUpdateSource
 	{
-		public AliyunOssSource(string accessKeyId, string accessKeySecret, string bucketName
+        private AliyunOSSTransfer AliyunTransfer { get; set; }
+        private string BucketName { get; set; }
+        private string SourceRoot { get; set; }
+        private string FeedPath
+        {
+            get { return SourceRoot + @"/UpdateFeed.xml"; }
+        }
+
+        public AliyunOssSource(AliyunOSSTransfer aliyunTransfer, string bucketName
             , string sourceRoot)
 		{
+            AliyunTransfer = aliyunTransfer;
+            BucketName = bucketName;
+            SourceRoot = sourceRoot;
 		}
 
 		#region IUpdateSource Members
 
 	    public string GetUpdatesFeed()
 	    {
-			return "";
+            try
+            {
+                using (var result = AliyunTransfer.GetObject(BucketName, FeedPath))
+                {
+                    using (StreamReader reader = new StreamReader(result.Content))
+                    {
+                        return reader.ReadToEnd();
+                    }
+                }
+            }
+            catch(Exception)
+            {
+
+            }
+
+            return "";
 		}
 
 		public bool GetData(string url, string baseUrl, Action<UpdateProgressInfo> onProgress, ref string tempLocation)
