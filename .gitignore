@@ -28,3 +28,4 @@ Thumbs.db
 *\updater.exe
 *.orig
 packages/
+/Samples/WPFSampleApp/UpdateFeed.xml
