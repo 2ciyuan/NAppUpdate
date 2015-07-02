@@ -56,6 +56,10 @@
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Aliyun.OpenServices, Version=1.0.5290.21916, Culture=neutral, PublicKeyToken=0ad4175f0dac0b9b, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Aliyun.OpenServices.1.0.5290.21916\lib\Aliyun.OpenServices.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Xml" />
   </ItemGroup>
@@ -85,6 +89,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Sources\AliyunOssSource.cs" />
     <Compile Include="Sources\IUpdateSource.cs" />
     <Compile Include="Sources\MemorySource.cs" />
     <Compile Include="Sources\SimpleWebSource.cs" />
@@ -110,6 +115,7 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <None Include="NAppUpdate.snk" />
+    <None Include="packages.config" />
     <None Include="Updater\updater.exe" />
   </ItemGroup>
   <ItemGroup>
