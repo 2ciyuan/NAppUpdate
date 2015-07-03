@@ -1,3 +1,4 @@
+using FeedBuilder.Properties;
 using System;
 using System.Collections;
 using System.Collections.Specialized;
@@ -219,7 +220,7 @@ namespace FeedBuilder
 				s.Serialize(xmlWriter, propVal.PropertyValue, ns);
 				xmlWriter.Close();
 				node.InnerXml = builder.ToString();
-			} else node.InnerText = propVal.SerializedValue.ToString();
+			} else node.InnerText = propVal?.SerializedValue?.ToString() ?? "";
 		}
 
 		private bool IsRoaming(SettingsProperty prop)
