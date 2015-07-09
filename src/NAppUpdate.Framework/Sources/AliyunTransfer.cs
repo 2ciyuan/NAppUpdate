@@ -304,11 +304,6 @@ namespace NAppUpdate.Framework.Sources
             }
         }
 
-        public void GetDirectory(AliyunDownloadDirectoryRequest downloadDirectoryRequst)
-        {
-
-        }
-
         /// <summary>
         /// 目录删除，暂时只支持一层文件夹
         /// </summary>
@@ -321,6 +316,11 @@ namespace NAppUpdate.Framework.Sources
             {
                 _ossClient.DeleteObject(objSummary.BucketName, objSummary.Key);
             }
+            _ossClient.DeleteObject(bucketName, key);
+        }
+
+        public void DeleteObject(string bucketName, string key)
+        {
             _ossClient.DeleteObject(bucketName, key);
         }
 

@@ -65,6 +65,24 @@ namespace NAppUpdate.Framework.Sources
             return false;
 		}
 
-		#endregion
-	}
+        public bool DeployData(string fileKey, string baseKey, Action<UpdateProgressInfo> onProgress, string fileLocation)
+        {
+            try
+            {
+                //aliyun对于"a//b"这样的路径不认，只认"a/b"
+                string fullFileKey = (SourceRoot + "/" + baseKey + "/" + fileKey).Replace("//", "/");
+                AliyunUploadRequest updateRequest = new AliyunUploadRequest(BucketName, fullFileKey
+                    , fileLocation);
+                AliyunTransfer.PutObejct(updateRequest);
+                return true;
+            }
+            catch (Exception)
+            {
+
+            }
+            return false;
+        }
+
+        #endregion
+    }
 }

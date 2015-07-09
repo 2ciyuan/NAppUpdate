@@ -74,7 +74,6 @@ namespace FeedBuilder
 		{
 			if (!string.IsNullOrEmpty(Settings.Default.OutputFolder) && Directory.Exists(Settings.Default.OutputFolder)) txtOutputFolder.Text = Settings.Default.OutputFolder;
 			if (!string.IsNullOrEmpty(Settings.Default.FeedXML)) txtFeedXML.Text = Settings.Default.FeedXML;
-			if (!string.IsNullOrEmpty(Settings.Default.BaseURL)) txtBaseURL.Text = Settings.Default.BaseURL;
 
 			chkVersion.Checked = Settings.Default.CompareVersion;
 			chkSize.Checked = Settings.Default.CompareSize;
@@ -103,8 +102,6 @@ namespace FeedBuilder
 			if (!string.IsNullOrEmpty(txtOutputFolder.Text.Trim()) && Directory.Exists(txtOutputFolder.Text.Trim())) Settings.Default.OutputFolder = txtOutputFolder.Text.Trim();
 // ReSharper disable AssignNullToNotNullAttribute
 			if (!string.IsNullOrEmpty(txtFeedXML.Text.Trim()) && Directory.Exists(Path.GetDirectoryName(txtFeedXML.Text.Trim()))) Settings.Default.FeedXML = txtFeedXML.Text.Trim();
-// ReSharper restore AssignNullToNotNullAttribute
-			if (!string.IsNullOrEmpty(txtBaseURL.Text.Trim())) Settings.Default.BaseURL = txtBaseURL.Text.Trim();
 
 			Settings.Default.CompareVersion = chkVersion.Checked;
 			Settings.Default.CompareSize = chkSize.Checked;
@@ -216,7 +213,6 @@ namespace FeedBuilder
 
 		private void Build()
 		{
-			Console.WriteLine("Building NAppUpdater feed '{0}'", txtBaseURL.Text.Trim());
 			if (string.IsNullOrEmpty(txtFeedXML.Text)) {
 				const string msg = "The feed file location needs to be defined.\n" + "The outputs cannot be generated without this.";
 				if (_argParser.ShowGui) MessageBox.Show(msg);
@@ -233,7 +229,6 @@ namespace FeedBuilder
 
 			doc.AppendChild(dec);
 			XmlElement feed = doc.CreateElement("Feed");
-			if (!string.IsNullOrEmpty(txtBaseURL.Text.Trim())) feed.SetAttribute("BaseUrl", txtBaseURL.Text.Trim());
 			doc.AppendChild(feed);
 
 			XmlElement tasks = doc.CreateElement("Tasks");
@@ -517,5 +512,37 @@ namespace FeedBuilder
 				MessageBox.Show("The file could not be opened: \n" + ex.Message);
 			}
 		}
-	}
+
+        private void btnDeploy_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnLoadServerConfig_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog dlg = new OpenFileDialog()
+            {
+                Filter = "Profile Files (*.pf)|*.pf|All Files (*.*)|*.*",
+                FilterIndex = 1,
+                Multiselect = false,
+            };
+
+            if (dlg.ShowDialog() == DialogResult.OK)
+            {
+                LoadProFile(dlg.FileName);
+            }
+        }
+
+        private void LoadProFile(string fileName)
+        {
+            FeedBuilder.ServerProfile.ServerProfile pf = FeedBuilder.ServerProfile.ServerProfile.LoadFromFile(fileName);
+            labelServerConfigPath.Text = fileName;
+
+            txtOssEndPoint.Text = pf.OssEndPoint;
+            txtOssBucketName.Text = pf.OssBucketName;
+            txtOssAccessKeyID.Text = pf.OssAccessKeyID;
+            txtOssAccessKeySecret.Text = pf.OssAccessKeySecret;
+            txtOssSourceRoot.Text = pf.OssSourceRoot;
+        }
+    }
 }

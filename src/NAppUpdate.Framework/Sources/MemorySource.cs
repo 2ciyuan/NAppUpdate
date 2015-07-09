@@ -45,6 +45,11 @@ namespace NAppUpdate.Framework.Sources
             return true;
         }
 
+        public bool DeployData(string filePath, string basePath, Action<UpdateProgressInfo> onProgress, string fileLocation)
+        {
+            return false;
+        }
+
         #endregion
     }
 }

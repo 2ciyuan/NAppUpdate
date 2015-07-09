@@ -88,6 +88,11 @@ namespace NAppUpdate.Framework.Sources
 			return fd.DownloadToFile(tempLocation, onProgress);
 		}
 
-		#endregion
-	}
+        public bool DeployData(string filePath, string basePath, Action<UpdateProgressInfo> onProgress, string fileLocation)
+        {
+            return false;
+        }
+
+        #endregion
+    }
 }

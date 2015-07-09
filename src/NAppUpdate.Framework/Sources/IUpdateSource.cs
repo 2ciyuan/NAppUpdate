@@ -7,5 +7,6 @@ namespace NAppUpdate.Framework.Sources
     {
         string GetUpdatesFeed(); // TODO: return a the feed as a stream
 		bool GetData(string filePath, string basePath, Action<UpdateProgressInfo> onProgress, ref string tempLocation);
+        bool DeployData(string filePath, string basePath, Action<UpdateProgressInfo> onProgress, string fileLocation);
     }
 }
