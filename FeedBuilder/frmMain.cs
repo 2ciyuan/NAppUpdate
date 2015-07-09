@@ -533,10 +533,10 @@ namespace FeedBuilder
             }
         }
 
-        private void LoadProFile(string fileName)
+        private void LoadProFile(string serverConfigFilePath)
         {
-            FeedBuilder.ServerProfile.ServerProfile pf = FeedBuilder.ServerProfile.ServerProfile.LoadFromFile(fileName);
-            labelServerConfigPath.Text = fileName;
+            FeedBuilder.ServerProfile.ServerProfile pf = FeedBuilder.ServerProfile.ServerProfile.LoadFromFile(serverConfigFilePath);
+            labelServerConfigPath.Text = serverConfigFilePath;
 
             txtOssEndPoint.Text = pf.OssEndPoint;
             txtOssBucketName.Text = pf.OssBucketName;
@@ -544,5 +544,44 @@ namespace FeedBuilder
             txtOssAccessKeySecret.Text = pf.OssAccessKeySecret;
             txtOssSourceRoot.Text = pf.OssSourceRoot;
         }
+
+        private void btnSaveServerConfig_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(labelServerConfigPath.Text))
+            {
+                SaveProFile(labelServerConfigPath.Text);
+            }
+            else
+            {
+                btnSaveAsServerConfig_Click(sender, e);
+            }
+        }
+        private void btnSaveAsServerConfig_Click(object sender, EventArgs e)
+        {
+            SaveFileDialog dlg = new SaveFileDialog();
+            dlg.Filter = "Profile Files (.txt)|*.pf|All Files (*.*)|*.*";
+            dlg.FilterIndex = 1;
+
+            if (dlg.ShowDialog() == DialogResult.OK)
+            {
+                labelServerConfigPath.Text = dlg.FileName;
+                SaveProFile(dlg.FileName);
+            }
+        }
+
+        private void SaveProFile(string serverConfigFilePath)
+        {
+            FeedBuilder.ServerProfile.ServerProfile pf = new FeedBuilder.ServerProfile.ServerProfile();
+
+            pf.OssEndPoint = txtOssEndPoint.Text;
+            pf.OssBucketName = txtOssBucketName.Text;
+            pf.OssAccessKeyID = txtOssAccessKeyID.Text;
+            pf.OssAccessKeySecret = txtOssAccessKeySecret.Text;
+            pf.OssSourceRoot = txtOssSourceRoot.Text;
+
+            pf.SaveToFile(serverConfigFilePath);
+        }
+
+
     }
 }

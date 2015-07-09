@@ -50,6 +50,21 @@ namespace FeedBuilder
             this.ToolStripContainer1 = new System.Windows.Forms.ToolStripContainer();
             this.panFiles = new System.Windows.Forms.Panel();
             this.grpSettings = new System.Windows.Forms.GroupBox();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.txtOssSourceRoot = new System.Windows.Forms.TextBox();
+            this.label5 = new System.Windows.Forms.Label();
+            this.txtOssAccessKeySecret = new System.Windows.Forms.TextBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.txtOssAccessKeyID = new System.Windows.Forms.TextBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.txtOssBucketName = new System.Windows.Forms.TextBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.txtOssEndPoint = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.btnSaveAsServerConfig = new System.Windows.Forms.Button();
+            this.btnSaveServerConfig = new System.Windows.Forms.Button();
+            this.labelServerConfigPath = new System.Windows.Forms.Label();
+            this.btnLoadServerConfig = new System.Windows.Forms.Button();
             this.chkCleanUp = new System.Windows.Forms.CheckBox();
             this.chkCopyFiles = new System.Windows.Forms.CheckBox();
             this.lblIgnore = new System.Windows.Forms.Label();
@@ -79,22 +94,7 @@ namespace FeedBuilder
             this.btnBuild = new System.Windows.Forms.ToolStripButton();
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.btnLoadServerConfig = new System.Windows.Forms.Button();
             this.fileSystemWatcher1 = new System.IO.FileSystemWatcher();
-            this.labelServerConfigPath = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
-            this.txtOssEndPoint = new System.Windows.Forms.TextBox();
-            this.txtOssBucketName = new System.Windows.Forms.TextBox();
-            this.label2 = new System.Windows.Forms.Label();
-            this.txtOssAccessKeyID = new System.Windows.Forms.TextBox();
-            this.label3 = new System.Windows.Forms.Label();
-            this.txtOssAccessKeySecret = new System.Windows.Forms.TextBox();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
-            this.txtOssSourceRoot = new System.Windows.Forms.TextBox();
             this.txtFeedXML = new FeedBuilder.HelpfulTextBox(this.components);
             this.txtOutputFolder = new FeedBuilder.HelpfulTextBox(this.components);
             this.ToolStripContainer1.ContentPanel.SuspendLayout();
@@ -102,9 +102,9 @@ namespace FeedBuilder
             this.ToolStripContainer1.SuspendLayout();
             this.panFiles.SuspendLayout();
             this.grpSettings.SuspendLayout();
+            this.groupBox1.SuspendLayout();
             this.tsMain.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
-            this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.fileSystemWatcher1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -244,6 +244,149 @@ namespace FeedBuilder
             this.grpSettings.TabIndex = 1;
             this.grpSettings.TabStop = false;
             this.grpSettings.Text = "Settings:";
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.txtOssSourceRoot);
+            this.groupBox1.Controls.Add(this.label5);
+            this.groupBox1.Controls.Add(this.txtOssAccessKeySecret);
+            this.groupBox1.Controls.Add(this.label4);
+            this.groupBox1.Controls.Add(this.txtOssAccessKeyID);
+            this.groupBox1.Controls.Add(this.label3);
+            this.groupBox1.Controls.Add(this.txtOssBucketName);
+            this.groupBox1.Controls.Add(this.label2);
+            this.groupBox1.Controls.Add(this.txtOssEndPoint);
+            this.groupBox1.Controls.Add(this.label1);
+            this.groupBox1.Controls.Add(this.btnSaveAsServerConfig);
+            this.groupBox1.Controls.Add(this.btnSaveServerConfig);
+            this.groupBox1.Controls.Add(this.labelServerConfigPath);
+            this.groupBox1.Controls.Add(this.btnLoadServerConfig);
+            this.groupBox1.Location = new System.Drawing.Point(23, 93);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(1048, 152);
+            this.groupBox1.TabIndex = 18;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "远程服务器";
+            // 
+            // txtOssSourceRoot
+            // 
+            this.txtOssSourceRoot.Location = new System.Drawing.Point(128, 110);
+            this.txtOssSourceRoot.Name = "txtOssSourceRoot";
+            this.txtOssSourceRoot.Size = new System.Drawing.Size(501, 22);
+            this.txtOssSourceRoot.TabIndex = 13;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(14, 113);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(108, 17);
+            this.label5.TabIndex = 12;
+            this.label5.Text = "OssSourceRoot";
+            // 
+            // txtOssAccessKeySecret
+            // 
+            this.txtOssAccessKeySecret.Location = new System.Drawing.Point(783, 79);
+            this.txtOssAccessKeySecret.Name = "txtOssAccessKeySecret";
+            this.txtOssAccessKeySecret.Size = new System.Drawing.Size(259, 22);
+            this.txtOssAccessKeySecret.TabIndex = 11;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(632, 81);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(143, 17);
+            this.label4.TabIndex = 10;
+            this.label4.Text = "OssAccessKeySecret";
+            // 
+            // txtOssAccessKeyID
+            // 
+            this.txtOssAccessKeyID.Location = new System.Drawing.Point(402, 79);
+            this.txtOssAccessKeyID.Name = "txtOssAccessKeyID";
+            this.txtOssAccessKeyID.Size = new System.Drawing.Size(210, 22);
+            this.txtOssAccessKeyID.TabIndex = 9;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(280, 81);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(115, 17);
+            this.label3.TabIndex = 8;
+            this.label3.Text = "OssAccessKeyID";
+            // 
+            // txtOssBucketName
+            // 
+            this.txtOssBucketName.Location = new System.Drawing.Point(128, 79);
+            this.txtOssBucketName.Name = "txtOssBucketName";
+            this.txtOssBucketName.Size = new System.Drawing.Size(139, 22);
+            this.txtOssBucketName.TabIndex = 7;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(14, 81);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(113, 17);
+            this.label2.TabIndex = 6;
+            this.label2.Text = "OssBucketName";
+            // 
+            // txtOssEndPoint
+            // 
+            this.txtOssEndPoint.Location = new System.Drawing.Point(128, 49);
+            this.txtOssEndPoint.Name = "txtOssEndPoint";
+            this.txtOssEndPoint.Size = new System.Drawing.Size(501, 22);
+            this.txtOssEndPoint.TabIndex = 5;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(14, 52);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(90, 17);
+            this.label1.TabIndex = 4;
+            this.label1.Text = "OssEndPoint";
+            // 
+            // btnSaveAsServerConfig
+            // 
+            this.btnSaveAsServerConfig.Location = new System.Drawing.Point(654, 11);
+            this.btnSaveAsServerConfig.Name = "btnSaveAsServerConfig";
+            this.btnSaveAsServerConfig.Size = new System.Drawing.Size(78, 29);
+            this.btnSaveAsServerConfig.TabIndex = 3;
+            this.btnSaveAsServerConfig.Text = "另存为...";
+            this.btnSaveAsServerConfig.UseVisualStyleBackColor = true;
+            this.btnSaveAsServerConfig.Click += new System.EventHandler(this.btnSaveAsServerConfig_Click);
+            // 
+            // btnSaveServerConfig
+            // 
+            this.btnSaveServerConfig.Location = new System.Drawing.Point(565, 11);
+            this.btnSaveServerConfig.Name = "btnSaveServerConfig";
+            this.btnSaveServerConfig.Size = new System.Drawing.Size(78, 29);
+            this.btnSaveServerConfig.TabIndex = 2;
+            this.btnSaveServerConfig.Text = "保存";
+            this.btnSaveServerConfig.UseVisualStyleBackColor = true;
+            this.btnSaveServerConfig.Click += new System.EventHandler(this.btnSaveServerConfig_Click);
+            // 
+            // labelServerConfigPath
+            // 
+            this.labelServerConfigPath.AutoSize = true;
+            this.labelServerConfigPath.Enabled = false;
+            this.labelServerConfigPath.Location = new System.Drawing.Point(180, 17);
+            this.labelServerConfigPath.Name = "labelServerConfigPath";
+            this.labelServerConfigPath.Size = new System.Drawing.Size(204, 17);
+            this.labelServerConfigPath.TabIndex = 1;
+            this.labelServerConfigPath.Text = "请点击加载按钮选择服务器文件";
+            // 
+            // btnLoadServerConfig
+            // 
+            this.btnLoadServerConfig.Location = new System.Drawing.Point(96, 11);
+            this.btnLoadServerConfig.Name = "btnLoadServerConfig";
+            this.btnLoadServerConfig.Size = new System.Drawing.Size(78, 29);
+            this.btnLoadServerConfig.TabIndex = 0;
+            this.btnLoadServerConfig.Text = "加载...";
+            this.btnLoadServerConfig.UseVisualStyleBackColor = true;
+            this.btnLoadServerConfig.Click += new System.EventHandler(this.btnLoadServerConfig_Click);
             // 
             // chkCleanUp
             // 
@@ -555,151 +698,10 @@ namespace FeedBuilder
             this.contextMenuStrip1.Name = "contextMenuStrip1";
             this.contextMenuStrip1.Size = new System.Drawing.Size(67, 4);
             // 
-            // groupBox1
-            // 
-            this.groupBox1.Controls.Add(this.txtOssSourceRoot);
-            this.groupBox1.Controls.Add(this.label5);
-            this.groupBox1.Controls.Add(this.txtOssAccessKeySecret);
-            this.groupBox1.Controls.Add(this.label4);
-            this.groupBox1.Controls.Add(this.txtOssAccessKeyID);
-            this.groupBox1.Controls.Add(this.label3);
-            this.groupBox1.Controls.Add(this.txtOssBucketName);
-            this.groupBox1.Controls.Add(this.label2);
-            this.groupBox1.Controls.Add(this.txtOssEndPoint);
-            this.groupBox1.Controls.Add(this.label1);
-            this.groupBox1.Controls.Add(this.button2);
-            this.groupBox1.Controls.Add(this.button1);
-            this.groupBox1.Controls.Add(this.labelServerConfigPath);
-            this.groupBox1.Controls.Add(this.btnLoadServerConfig);
-            this.groupBox1.Location = new System.Drawing.Point(23, 93);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(1048, 152);
-            this.groupBox1.TabIndex = 18;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "远程服务器";
-            // 
-            // btnLoadServerConfig
-            // 
-            this.btnLoadServerConfig.Location = new System.Drawing.Point(96, 11);
-            this.btnLoadServerConfig.Name = "btnLoadServerConfig";
-            this.btnLoadServerConfig.Size = new System.Drawing.Size(78, 29);
-            this.btnLoadServerConfig.TabIndex = 0;
-            this.btnLoadServerConfig.Text = "加载...";
-            this.btnLoadServerConfig.UseVisualStyleBackColor = true;
-            this.btnLoadServerConfig.Click += new System.EventHandler(this.btnLoadServerConfig_Click);
-            // 
             // fileSystemWatcher1
             // 
             this.fileSystemWatcher1.EnableRaisingEvents = true;
             this.fileSystemWatcher1.SynchronizingObject = this;
-            // 
-            // labelServerConfigPath
-            // 
-            this.labelServerConfigPath.AutoSize = true;
-            this.labelServerConfigPath.Enabled = false;
-            this.labelServerConfigPath.Location = new System.Drawing.Point(180, 17);
-            this.labelServerConfigPath.Name = "labelServerConfigPath";
-            this.labelServerConfigPath.Size = new System.Drawing.Size(204, 17);
-            this.labelServerConfigPath.TabIndex = 1;
-            this.labelServerConfigPath.Text = "请点击加载按钮选择服务器文件";
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(565, 11);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(78, 29);
-            this.button1.TabIndex = 2;
-            this.button1.Text = "保存";
-            this.button1.UseVisualStyleBackColor = true;
-            // 
-            // button2
-            // 
-            this.button2.Location = new System.Drawing.Point(654, 11);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(78, 29);
-            this.button2.TabIndex = 3;
-            this.button2.Text = "另存为...";
-            this.button2.UseVisualStyleBackColor = true;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(14, 52);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(90, 17);
-            this.label1.TabIndex = 4;
-            this.label1.Text = "OssEndPoint";
-            // 
-            // txtOssEndPoint
-            // 
-            this.txtOssEndPoint.Location = new System.Drawing.Point(128, 49);
-            this.txtOssEndPoint.Name = "txtOssEndPoint";
-            this.txtOssEndPoint.Size = new System.Drawing.Size(501, 22);
-            this.txtOssEndPoint.TabIndex = 5;
-            // 
-            // txtOssBucketName
-            // 
-            this.txtOssBucketName.Location = new System.Drawing.Point(128, 79);
-            this.txtOssBucketName.Name = "txtOssBucketName";
-            this.txtOssBucketName.Size = new System.Drawing.Size(139, 22);
-            this.txtOssBucketName.TabIndex = 7;
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(14, 81);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(113, 17);
-            this.label2.TabIndex = 6;
-            this.label2.Text = "OssBucketName";
-            // 
-            // txtOssAccessKeyID
-            // 
-            this.txtOssAccessKeyID.Location = new System.Drawing.Point(402, 79);
-            this.txtOssAccessKeyID.Name = "txtOssAccessKeyID";
-            this.txtOssAccessKeyID.Size = new System.Drawing.Size(210, 22);
-            this.txtOssAccessKeyID.TabIndex = 9;
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(280, 81);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(115, 17);
-            this.label3.TabIndex = 8;
-            this.label3.Text = "OssAccessKeyID";
-            // 
-            // txtOssAccessKeySecret
-            // 
-            this.txtOssAccessKeySecret.Location = new System.Drawing.Point(783, 79);
-            this.txtOssAccessKeySecret.Name = "txtOssAccessKeySecret";
-            this.txtOssAccessKeySecret.Size = new System.Drawing.Size(259, 22);
-            this.txtOssAccessKeySecret.TabIndex = 11;
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(632, 81);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(143, 17);
-            this.label4.TabIndex = 10;
-            this.label4.Text = "OssAccessKeySecret";
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(14, 113);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(108, 17);
-            this.label5.TabIndex = 12;
-            this.label5.Text = "OssSourceRoot";
-            // 
-            // txtOssSourceRoot
-            // 
-            this.txtOssSourceRoot.Location = new System.Drawing.Point(128, 110);
-            this.txtOssSourceRoot.Name = "txtOssSourceRoot";
-            this.txtOssSourceRoot.Size = new System.Drawing.Size(501, 22);
-            this.txtOssSourceRoot.TabIndex = 13;
             // 
             // txtFeedXML
             // 
@@ -751,11 +753,11 @@ namespace FeedBuilder
             this.panFiles.ResumeLayout(false);
             this.grpSettings.ResumeLayout(false);
             this.grpSettings.PerformLayout();
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
             this.tsMain.ResumeLayout(false);
             this.tsMain.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.fileSystemWatcher1)).EndInit();
             this.ResumeLayout(false);
 
@@ -810,8 +812,8 @@ namespace FeedBuilder
         private Button btnLoadServerConfig;
         private System.IO.FileSystemWatcher fileSystemWatcher1;
         private Label labelServerConfigPath;
-        private Button button2;
-        private Button button1;
+        private Button btnSaveAsServerConfig;
+        private Button btnSaveServerConfig;
         private Label label1;
         private TextBox txtOssEndPoint;
         private TextBox txtOssAccessKeyID;
