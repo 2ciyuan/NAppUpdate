@@ -180,5 +180,21 @@ namespace FeedBuilder.Properties {
                 this["OutputFolder"] = value;
             }
         }
+
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Configuration.SettingsProviderAttribute(typeof(FeedBuilder.FeedBuilderSettingsProvider))]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string ServerConfigFilePath
+        {
+            get
+            {
+                return ((string)(this["ServerConfigFilePath"]));
+            }
+            set
+            {
+                this["ServerConfigFilePath"] = value;
+            }
+        }
     }
 }

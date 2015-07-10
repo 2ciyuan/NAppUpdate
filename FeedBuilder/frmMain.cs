@@ -84,11 +84,13 @@ namespace FeedBuilder
 			chkIgnoreVsHost.Checked = Settings.Default.IgnoreVsHosting;
 			chkCopyFiles.Checked = Settings.Default.CopyFiles;
 			chkCleanUp.Checked = Settings.Default.CleanUp;
+            labelServerConfigPath.Text = Settings.Default.ServerConfigFilePath;
 
-			if (Settings.Default.IgnoreFiles == null) Settings.Default.IgnoreFiles = new StringCollection();
+            if (Settings.Default.IgnoreFiles == null) Settings.Default.IgnoreFiles = new StringCollection();
 			ReadFiles();
 			UpdateTitle();
-		}
+            LoadProFile(Settings.Default.ServerConfigFilePath);
+        }
 
 		private void UpdateTitle()
 		{
@@ -112,8 +114,9 @@ namespace FeedBuilder
 			Settings.Default.IgnoreVsHosting = chkIgnoreVsHost.Checked;
 			Settings.Default.CopyFiles = chkCopyFiles.Checked;
 			Settings.Default.CleanUp = chkCleanUp.Checked;
+            Settings.Default.ServerConfigFilePath = labelServerConfigPath.Text;
 
-			if (Settings.Default.IgnoreFiles==null) Settings.Default.IgnoreFiles = new StringCollection();
+            if (Settings.Default.IgnoreFiles==null) Settings.Default.IgnoreFiles = new StringCollection();
 			Settings.Default.IgnoreFiles.Clear();
 			foreach (ListViewItem thisItem in lstFiles.Items) {
 				if (!thisItem.Checked) Settings.Default.IgnoreFiles.Add(thisItem.Text);
@@ -558,9 +561,11 @@ namespace FeedBuilder
         }
         private void btnSaveAsServerConfig_Click(object sender, EventArgs e)
         {
-            SaveFileDialog dlg = new SaveFileDialog();
-            dlg.Filter = "Profile Files (.txt)|*.pf|All Files (*.*)|*.*";
-            dlg.FilterIndex = 1;
+            SaveFileDialog dlg = new SaveFileDialog()
+            {
+                Filter = "Profile Files (*.pf)|*.pf|All Files (*.*)|*.*",
+                FilterIndex = 1,
+            };
 
             if (dlg.ShowDialog() == DialogResult.OK)
             {
@@ -581,7 +586,5 @@ namespace FeedBuilder
 
             pf.SaveToFile(serverConfigFilePath);
         }
-
-
     }
 }

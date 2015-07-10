@@ -371,7 +371,6 @@ namespace FeedBuilder
             // labelServerConfigPath
             // 
             this.labelServerConfigPath.AutoSize = true;
-            this.labelServerConfigPath.Enabled = false;
             this.labelServerConfigPath.Location = new System.Drawing.Point(180, 17);
             this.labelServerConfigPath.Name = "labelServerConfigPath";
             this.labelServerConfigPath.Size = new System.Drawing.Size(204, 17);
