@@ -46,11 +46,12 @@ namespace FeedBuilder
             this.colHash = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.imgFiles = new System.Windows.Forms.ImageList(this.components);
             this.fbdOutputFolder = new System.Windows.Forms.FolderBrowserDialog();
-            this.sfdFeedXML = new System.Windows.Forms.SaveFileDialog();
+            this.sfdFeedXML = new System.Windows.Forms.FolderBrowserDialog();
             this.ToolStripContainer1 = new System.Windows.Forms.ToolStripContainer();
             this.panFiles = new System.Windows.Forms.Panel();
-            this.grpSettings = new System.Windows.Forms.GroupBox();
+            this.button2 = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.btnUploadFiles = new System.Windows.Forms.Button();
             this.txtOssSourceRoot = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.txtOssAccessKeySecret = new System.Windows.Forms.TextBox();
@@ -65,6 +66,8 @@ namespace FeedBuilder
             this.btnSaveServerConfig = new System.Windows.Forms.Button();
             this.labelServerConfigPath = new System.Windows.Forms.Label();
             this.btnLoadServerConfig = new System.Windows.Forms.Button();
+            this.grpSettings = new System.Windows.Forms.GroupBox();
+            this.btnBuildUpdateFeed = new System.Windows.Forms.Button();
             this.chkCleanUp = new System.Windows.Forms.CheckBox();
             this.chkCopyFiles = new System.Windows.Forms.CheckBox();
             this.lblIgnore = new System.Windows.Forms.Label();
@@ -77,8 +80,10 @@ namespace FeedBuilder
             this.chkIgnoreVsHost = new System.Windows.Forms.CheckBox();
             this.chkIgnoreSymbols = new System.Windows.Forms.CheckBox();
             this.cmdFeedXML = new System.Windows.Forms.Button();
+            this.txtFeedXML = new FeedBuilder.HelpfulTextBox(this.components);
             this.lblFeedXML = new System.Windows.Forms.Label();
             this.cmdOutputFolder = new System.Windows.Forms.Button();
+            this.txtOutputFolder = new FeedBuilder.HelpfulTextBox(this.components);
             this.lblOutputFolder = new System.Windows.Forms.Label();
             this.tsMain = new System.Windows.Forms.ToolStrip();
             this.btnNew = new System.Windows.Forms.ToolStripButton();
@@ -89,20 +94,15 @@ namespace FeedBuilder
             this.btnRefresh = new System.Windows.Forms.ToolStripButton();
             this.btnOpenOutputs = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            this.btnPublish = new System.Windows.Forms.ToolStripButton();
-            this.btnDeploy = new System.Windows.Forms.ToolStripButton();
-            this.btnBuild = new System.Windows.Forms.ToolStripButton();
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.fileSystemWatcher1 = new System.IO.FileSystemWatcher();
-            this.txtFeedXML = new FeedBuilder.HelpfulTextBox(this.components);
-            this.txtOutputFolder = new FeedBuilder.HelpfulTextBox(this.components);
             this.ToolStripContainer1.ContentPanel.SuspendLayout();
             this.ToolStripContainer1.TopToolStripPanel.SuspendLayout();
             this.ToolStripContainer1.SuspendLayout();
             this.panFiles.SuspendLayout();
-            this.grpSettings.SuspendLayout();
             this.groupBox1.SuspendLayout();
+            this.grpSettings.SuspendLayout();
             this.tsMain.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.fileSystemWatcher1)).BeginInit();
@@ -117,11 +117,11 @@ namespace FeedBuilder
             this.colSize,
             this.colDate,
             this.colHash});
-            this.lstFiles.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lstFiles.Location = new System.Drawing.Point(0, 15);
+            this.lstFiles.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.lstFiles.Location = new System.Drawing.Point(16, 181);
             this.lstFiles.Margin = new System.Windows.Forms.Padding(0);
             this.lstFiles.Name = "lstFiles";
-            this.lstFiles.Size = new System.Drawing.Size(1091, 194);
+            this.lstFiles.Size = new System.Drawing.Size(1059, 191);
             this.lstFiles.SmallImageList = this.imgFiles;
             this.lstFiles.TabIndex = 0;
             this.lstFiles.UseCompatibleStateImageBehavior = false;
@@ -130,7 +130,7 @@ namespace FeedBuilder
             // colFilename
             // 
             this.colFilename.Text = "Filename";
-            this.colFilename.Width = 200;
+            this.colFilename.Width = 212;
             // 
             // colVersion
             // 
@@ -178,9 +178,7 @@ namespace FeedBuilder
             // 
             // sfdFeedXML
             // 
-            this.sfdFeedXML.DefaultExt = "xml";
-            this.sfdFeedXML.Filter = "XML Files (*.xml)|*.xml|All Files (*.*)|*.*";
-            this.sfdFeedXML.Title = "Select the location to save your NauXML file:";
+            this.sfdFeedXML.Description = "选择存放UpdateFeed.xml的位置";
             // 
             // ToolStripContainer1
             // 
@@ -191,12 +189,12 @@ namespace FeedBuilder
             this.ToolStripContainer1.ContentPanel.Controls.Add(this.grpSettings);
             this.ToolStripContainer1.ContentPanel.Margin = new System.Windows.Forms.Padding(4);
             this.ToolStripContainer1.ContentPanel.Padding = new System.Windows.Forms.Padding(16, 10, 16, 15);
-            this.ToolStripContainer1.ContentPanel.Size = new System.Drawing.Size(1123, 586);
+            this.ToolStripContainer1.ContentPanel.Size = new System.Drawing.Size(1123, 648);
             this.ToolStripContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.ToolStripContainer1.Location = new System.Drawing.Point(0, 0);
             this.ToolStripContainer1.Margin = new System.Windows.Forms.Padding(4);
             this.ToolStripContainer1.Name = "ToolStripContainer1";
-            this.ToolStripContainer1.Size = new System.Drawing.Size(1123, 613);
+            this.ToolStripContainer1.Size = new System.Drawing.Size(1123, 675);
             this.ToolStripContainer1.TabIndex = 3;
             this.ToolStripContainer1.Text = "ToolStripContainer1";
             // 
@@ -206,19 +204,181 @@ namespace FeedBuilder
             // 
             // panFiles
             // 
-            this.panFiles.Controls.Add(this.lstFiles);
+            this.panFiles.Controls.Add(this.button2);
+            this.panFiles.Controls.Add(this.groupBox1);
             this.panFiles.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panFiles.Location = new System.Drawing.Point(16, 362);
+            this.panFiles.Location = new System.Drawing.Point(16, 392);
             this.panFiles.Margin = new System.Windows.Forms.Padding(4);
             this.panFiles.Name = "panFiles";
             this.panFiles.Padding = new System.Windows.Forms.Padding(0, 15, 0, 0);
-            this.panFiles.Size = new System.Drawing.Size(1091, 209);
+            this.panFiles.Size = new System.Drawing.Size(1091, 241);
             this.panFiles.TabIndex = 2;
+            // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(454, 190);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(156, 31);
+            this.button2.TabIndex = 20;
+            this.button2.Text = "发布";
+            this.button2.UseVisualStyleBackColor = true;
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.btnUploadFiles);
+            this.groupBox1.Controls.Add(this.txtOssSourceRoot);
+            this.groupBox1.Controls.Add(this.label5);
+            this.groupBox1.Controls.Add(this.txtOssAccessKeySecret);
+            this.groupBox1.Controls.Add(this.label4);
+            this.groupBox1.Controls.Add(this.txtOssAccessKeyID);
+            this.groupBox1.Controls.Add(this.label3);
+            this.groupBox1.Controls.Add(this.txtOssBucketName);
+            this.groupBox1.Controls.Add(this.label2);
+            this.groupBox1.Controls.Add(this.txtOssEndPoint);
+            this.groupBox1.Controls.Add(this.label1);
+            this.groupBox1.Controls.Add(this.btnSaveAsServerConfig);
+            this.groupBox1.Controls.Add(this.btnSaveServerConfig);
+            this.groupBox1.Controls.Add(this.labelServerConfigPath);
+            this.groupBox1.Controls.Add(this.btnLoadServerConfig);
+            this.groupBox1.Location = new System.Drawing.Point(3, 18);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(1088, 152);
+            this.groupBox1.TabIndex = 18;
+            this.groupBox1.TabStop = false;
+            // 
+            // btnUploadFiles
+            // 
+            this.btnUploadFiles.Location = new System.Drawing.Point(13, -7);
+            this.btnUploadFiles.Name = "btnUploadFiles";
+            this.btnUploadFiles.Size = new System.Drawing.Size(156, 31);
+            this.btnUploadFiles.TabIndex = 19;
+            this.btnUploadFiles.Text = "上传文件";
+            this.btnUploadFiles.UseVisualStyleBackColor = true;
+            // 
+            // txtOssSourceRoot
+            // 
+            this.txtOssSourceRoot.Location = new System.Drawing.Point(139, 127);
+            this.txtOssSourceRoot.Name = "txtOssSourceRoot";
+            this.txtOssSourceRoot.Size = new System.Drawing.Size(501, 22);
+            this.txtOssSourceRoot.TabIndex = 13;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(25, 130);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(108, 17);
+            this.label5.TabIndex = 12;
+            this.label5.Text = "OssSourceRoot";
+            // 
+            // txtOssAccessKeySecret
+            // 
+            this.txtOssAccessKeySecret.Location = new System.Drawing.Point(794, 96);
+            this.txtOssAccessKeySecret.Name = "txtOssAccessKeySecret";
+            this.txtOssAccessKeySecret.Size = new System.Drawing.Size(259, 22);
+            this.txtOssAccessKeySecret.TabIndex = 11;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(643, 98);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(143, 17);
+            this.label4.TabIndex = 10;
+            this.label4.Text = "OssAccessKeySecret";
+            // 
+            // txtOssAccessKeyID
+            // 
+            this.txtOssAccessKeyID.Location = new System.Drawing.Point(413, 96);
+            this.txtOssAccessKeyID.Name = "txtOssAccessKeyID";
+            this.txtOssAccessKeyID.Size = new System.Drawing.Size(210, 22);
+            this.txtOssAccessKeyID.TabIndex = 9;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(291, 98);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(115, 17);
+            this.label3.TabIndex = 8;
+            this.label3.Text = "OssAccessKeyID";
+            // 
+            // txtOssBucketName
+            // 
+            this.txtOssBucketName.Location = new System.Drawing.Point(139, 96);
+            this.txtOssBucketName.Name = "txtOssBucketName";
+            this.txtOssBucketName.Size = new System.Drawing.Size(139, 22);
+            this.txtOssBucketName.TabIndex = 7;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(25, 98);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(113, 17);
+            this.label2.TabIndex = 6;
+            this.label2.Text = "OssBucketName";
+            // 
+            // txtOssEndPoint
+            // 
+            this.txtOssEndPoint.Location = new System.Drawing.Point(139, 66);
+            this.txtOssEndPoint.Name = "txtOssEndPoint";
+            this.txtOssEndPoint.Size = new System.Drawing.Size(501, 22);
+            this.txtOssEndPoint.TabIndex = 5;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(25, 69);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(90, 17);
+            this.label1.TabIndex = 4;
+            this.label1.Text = "OssEndPoint";
+            // 
+            // btnSaveAsServerConfig
+            // 
+            this.btnSaveAsServerConfig.Location = new System.Drawing.Point(802, 28);
+            this.btnSaveAsServerConfig.Name = "btnSaveAsServerConfig";
+            this.btnSaveAsServerConfig.Size = new System.Drawing.Size(78, 29);
+            this.btnSaveAsServerConfig.TabIndex = 3;
+            this.btnSaveAsServerConfig.Text = "另存为...";
+            this.btnSaveAsServerConfig.UseVisualStyleBackColor = true;
+            this.btnSaveAsServerConfig.Click += new System.EventHandler(this.btnSaveAsServerConfig_Click);
+            // 
+            // btnSaveServerConfig
+            // 
+            this.btnSaveServerConfig.Location = new System.Drawing.Point(713, 28);
+            this.btnSaveServerConfig.Name = "btnSaveServerConfig";
+            this.btnSaveServerConfig.Size = new System.Drawing.Size(78, 29);
+            this.btnSaveServerConfig.TabIndex = 2;
+            this.btnSaveServerConfig.Text = "保存";
+            this.btnSaveServerConfig.UseVisualStyleBackColor = true;
+            this.btnSaveServerConfig.Click += new System.EventHandler(this.btnSaveServerConfig_Click);
+            // 
+            // labelServerConfigPath
+            // 
+            this.labelServerConfigPath.AutoSize = true;
+            this.labelServerConfigPath.Location = new System.Drawing.Point(256, 34);
+            this.labelServerConfigPath.Name = "labelServerConfigPath";
+            this.labelServerConfigPath.Size = new System.Drawing.Size(204, 17);
+            this.labelServerConfigPath.TabIndex = 1;
+            this.labelServerConfigPath.Text = "请点击加载按钮选择服务器文件";
+            // 
+            // btnLoadServerConfig
+            // 
+            this.btnLoadServerConfig.Location = new System.Drawing.Point(107, 28);
+            this.btnLoadServerConfig.Name = "btnLoadServerConfig";
+            this.btnLoadServerConfig.Size = new System.Drawing.Size(138, 29);
+            this.btnLoadServerConfig.TabIndex = 0;
+            this.btnLoadServerConfig.Text = "加载服务器配置...";
+            this.btnLoadServerConfig.UseVisualStyleBackColor = true;
+            this.btnLoadServerConfig.Click += new System.EventHandler(this.btnLoadServerConfig_Click);
             // 
             // grpSettings
             // 
-            this.grpSettings.Controls.Add(this.groupBox1);
+            this.grpSettings.Controls.Add(this.btnBuildUpdateFeed);
             this.grpSettings.Controls.Add(this.chkCleanUp);
+            this.grpSettings.Controls.Add(this.lstFiles);
             this.grpSettings.Controls.Add(this.chkCopyFiles);
             this.grpSettings.Controls.Add(this.lblIgnore);
             this.grpSettings.Controls.Add(this.lblMisc);
@@ -240,159 +400,26 @@ namespace FeedBuilder
             this.grpSettings.Margin = new System.Windows.Forms.Padding(4);
             this.grpSettings.Name = "grpSettings";
             this.grpSettings.Padding = new System.Windows.Forms.Padding(16, 10, 16, 10);
-            this.grpSettings.Size = new System.Drawing.Size(1091, 352);
+            this.grpSettings.Size = new System.Drawing.Size(1091, 382);
             this.grpSettings.TabIndex = 1;
             this.grpSettings.TabStop = false;
-            this.grpSettings.Text = "Settings:";
             // 
-            // groupBox1
+            // btnBuildUpdateFeed
             // 
-            this.groupBox1.Controls.Add(this.txtOssSourceRoot);
-            this.groupBox1.Controls.Add(this.label5);
-            this.groupBox1.Controls.Add(this.txtOssAccessKeySecret);
-            this.groupBox1.Controls.Add(this.label4);
-            this.groupBox1.Controls.Add(this.txtOssAccessKeyID);
-            this.groupBox1.Controls.Add(this.label3);
-            this.groupBox1.Controls.Add(this.txtOssBucketName);
-            this.groupBox1.Controls.Add(this.label2);
-            this.groupBox1.Controls.Add(this.txtOssEndPoint);
-            this.groupBox1.Controls.Add(this.label1);
-            this.groupBox1.Controls.Add(this.btnSaveAsServerConfig);
-            this.groupBox1.Controls.Add(this.btnSaveServerConfig);
-            this.groupBox1.Controls.Add(this.labelServerConfigPath);
-            this.groupBox1.Controls.Add(this.btnLoadServerConfig);
-            this.groupBox1.Location = new System.Drawing.Point(23, 93);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(1048, 152);
-            this.groupBox1.TabIndex = 18;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "远程服务器";
-            // 
-            // txtOssSourceRoot
-            // 
-            this.txtOssSourceRoot.Location = new System.Drawing.Point(128, 110);
-            this.txtOssSourceRoot.Name = "txtOssSourceRoot";
-            this.txtOssSourceRoot.Size = new System.Drawing.Size(501, 22);
-            this.txtOssSourceRoot.TabIndex = 13;
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(14, 113);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(108, 17);
-            this.label5.TabIndex = 12;
-            this.label5.Text = "OssSourceRoot";
-            // 
-            // txtOssAccessKeySecret
-            // 
-            this.txtOssAccessKeySecret.Location = new System.Drawing.Point(783, 79);
-            this.txtOssAccessKeySecret.Name = "txtOssAccessKeySecret";
-            this.txtOssAccessKeySecret.Size = new System.Drawing.Size(259, 22);
-            this.txtOssAccessKeySecret.TabIndex = 11;
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(632, 81);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(143, 17);
-            this.label4.TabIndex = 10;
-            this.label4.Text = "OssAccessKeySecret";
-            // 
-            // txtOssAccessKeyID
-            // 
-            this.txtOssAccessKeyID.Location = new System.Drawing.Point(402, 79);
-            this.txtOssAccessKeyID.Name = "txtOssAccessKeyID";
-            this.txtOssAccessKeyID.Size = new System.Drawing.Size(210, 22);
-            this.txtOssAccessKeyID.TabIndex = 9;
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(280, 81);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(115, 17);
-            this.label3.TabIndex = 8;
-            this.label3.Text = "OssAccessKeyID";
-            // 
-            // txtOssBucketName
-            // 
-            this.txtOssBucketName.Location = new System.Drawing.Point(128, 79);
-            this.txtOssBucketName.Name = "txtOssBucketName";
-            this.txtOssBucketName.Size = new System.Drawing.Size(139, 22);
-            this.txtOssBucketName.TabIndex = 7;
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(14, 81);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(113, 17);
-            this.label2.TabIndex = 6;
-            this.label2.Text = "OssBucketName";
-            // 
-            // txtOssEndPoint
-            // 
-            this.txtOssEndPoint.Location = new System.Drawing.Point(128, 49);
-            this.txtOssEndPoint.Name = "txtOssEndPoint";
-            this.txtOssEndPoint.Size = new System.Drawing.Size(501, 22);
-            this.txtOssEndPoint.TabIndex = 5;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(14, 52);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(90, 17);
-            this.label1.TabIndex = 4;
-            this.label1.Text = "OssEndPoint";
-            // 
-            // btnSaveAsServerConfig
-            // 
-            this.btnSaveAsServerConfig.Location = new System.Drawing.Point(654, 11);
-            this.btnSaveAsServerConfig.Name = "btnSaveAsServerConfig";
-            this.btnSaveAsServerConfig.Size = new System.Drawing.Size(78, 29);
-            this.btnSaveAsServerConfig.TabIndex = 3;
-            this.btnSaveAsServerConfig.Text = "另存为...";
-            this.btnSaveAsServerConfig.UseVisualStyleBackColor = true;
-            this.btnSaveAsServerConfig.Click += new System.EventHandler(this.btnSaveAsServerConfig_Click);
-            // 
-            // btnSaveServerConfig
-            // 
-            this.btnSaveServerConfig.Location = new System.Drawing.Point(565, 11);
-            this.btnSaveServerConfig.Name = "btnSaveServerConfig";
-            this.btnSaveServerConfig.Size = new System.Drawing.Size(78, 29);
-            this.btnSaveServerConfig.TabIndex = 2;
-            this.btnSaveServerConfig.Text = "保存";
-            this.btnSaveServerConfig.UseVisualStyleBackColor = true;
-            this.btnSaveServerConfig.Click += new System.EventHandler(this.btnSaveServerConfig_Click);
-            // 
-            // labelServerConfigPath
-            // 
-            this.labelServerConfigPath.AutoSize = true;
-            this.labelServerConfigPath.Location = new System.Drawing.Point(180, 17);
-            this.labelServerConfigPath.Name = "labelServerConfigPath";
-            this.labelServerConfigPath.Size = new System.Drawing.Size(204, 17);
-            this.labelServerConfigPath.TabIndex = 1;
-            this.labelServerConfigPath.Text = "请点击加载按钮选择服务器文件";
-            // 
-            // btnLoadServerConfig
-            // 
-            this.btnLoadServerConfig.Location = new System.Drawing.Point(96, 11);
-            this.btnLoadServerConfig.Name = "btnLoadServerConfig";
-            this.btnLoadServerConfig.Size = new System.Drawing.Size(78, 29);
-            this.btnLoadServerConfig.TabIndex = 0;
-            this.btnLoadServerConfig.Text = "加载...";
-            this.btnLoadServerConfig.UseVisualStyleBackColor = true;
-            this.btnLoadServerConfig.Click += new System.EventHandler(this.btnLoadServerConfig_Click);
+            this.btnBuildUpdateFeed.Location = new System.Drawing.Point(21, -3);
+            this.btnBuildUpdateFeed.Name = "btnBuildUpdateFeed";
+            this.btnBuildUpdateFeed.Size = new System.Drawing.Size(156, 31);
+            this.btnBuildUpdateFeed.TabIndex = 18;
+            this.btnBuildUpdateFeed.Text = "生成UpdateFeed.xml";
+            this.btnBuildUpdateFeed.UseVisualStyleBackColor = true;
+            this.btnBuildUpdateFeed.Click += new System.EventHandler(this.btnBuildUpdateFeed_Click);
             // 
             // chkCleanUp
             // 
             this.chkCleanUp.AutoSize = true;
             this.chkCleanUp.Checked = true;
             this.chkCleanUp.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkCleanUp.Location = new System.Drawing.Point(391, 286);
+            this.chkCleanUp.Location = new System.Drawing.Point(391, 125);
             this.chkCleanUp.Margin = new System.Windows.Forms.Padding(4);
             this.chkCleanUp.Name = "chkCleanUp";
             this.chkCleanUp.Size = new System.Drawing.Size(174, 21);
@@ -405,7 +432,7 @@ namespace FeedBuilder
             this.chkCopyFiles.AutoSize = true;
             this.chkCopyFiles.Checked = true;
             this.chkCopyFiles.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkCopyFiles.Location = new System.Drawing.Point(195, 286);
+            this.chkCopyFiles.Location = new System.Drawing.Point(195, 125);
             this.chkCopyFiles.Margin = new System.Windows.Forms.Padding(4);
             this.chkCopyFiles.Name = "chkCopyFiles";
             this.chkCopyFiles.Size = new System.Drawing.Size(181, 21);
@@ -417,7 +444,7 @@ namespace FeedBuilder
             // lblIgnore
             // 
             this.lblIgnore.AutoSize = true;
-            this.lblIgnore.Location = new System.Drawing.Point(20, 322);
+            this.lblIgnore.Location = new System.Drawing.Point(20, 157);
             this.lblIgnore.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblIgnore.Name = "lblIgnore";
             this.lblIgnore.Size = new System.Drawing.Size(52, 17);
@@ -427,7 +454,7 @@ namespace FeedBuilder
             // lblMisc
             // 
             this.lblMisc.AutoSize = true;
-            this.lblMisc.Location = new System.Drawing.Point(20, 288);
+            this.lblMisc.Location = new System.Drawing.Point(20, 127);
             this.lblMisc.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblMisc.Name = "lblMisc";
             this.lblMisc.Size = new System.Drawing.Size(40, 17);
@@ -437,7 +464,7 @@ namespace FeedBuilder
             // lblCompare
             // 
             this.lblCompare.AutoSize = true;
-            this.lblCompare.Location = new System.Drawing.Point(20, 253);
+            this.lblCompare.Location = new System.Drawing.Point(20, 96);
             this.lblCompare.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblCompare.Name = "lblCompare";
             this.lblCompare.Size = new System.Drawing.Size(69, 17);
@@ -449,7 +476,7 @@ namespace FeedBuilder
             this.chkHash.AutoSize = true;
             this.chkHash.Checked = true;
             this.chkHash.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkHash.Location = new System.Drawing.Point(427, 252);
+            this.chkHash.Location = new System.Drawing.Point(427, 95);
             this.chkHash.Margin = new System.Windows.Forms.Padding(4);
             this.chkHash.Name = "chkHash";
             this.chkHash.Size = new System.Drawing.Size(63, 21);
@@ -460,7 +487,7 @@ namespace FeedBuilder
             // chkDate
             // 
             this.chkDate.AutoSize = true;
-            this.chkDate.Location = new System.Drawing.Point(353, 252);
+            this.chkDate.Location = new System.Drawing.Point(353, 95);
             this.chkDate.Margin = new System.Windows.Forms.Padding(4);
             this.chkDate.Name = "chkDate";
             this.chkDate.Size = new System.Drawing.Size(60, 21);
@@ -471,7 +498,7 @@ namespace FeedBuilder
             // chkSize
             // 
             this.chkSize.AutoSize = true;
-            this.chkSize.Location = new System.Drawing.Point(284, 252);
+            this.chkSize.Location = new System.Drawing.Point(284, 95);
             this.chkSize.Margin = new System.Windows.Forms.Padding(4);
             this.chkSize.Name = "chkSize";
             this.chkSize.Size = new System.Drawing.Size(57, 21);
@@ -484,7 +511,7 @@ namespace FeedBuilder
             this.chkVersion.AutoSize = true;
             this.chkVersion.Checked = true;
             this.chkVersion.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkVersion.Location = new System.Drawing.Point(195, 252);
+            this.chkVersion.Location = new System.Drawing.Point(195, 95);
             this.chkVersion.Margin = new System.Windows.Forms.Padding(4, 4, 4, 10);
             this.chkVersion.Name = "chkVersion";
             this.chkVersion.Size = new System.Drawing.Size(78, 21);
@@ -497,7 +524,7 @@ namespace FeedBuilder
             this.chkIgnoreVsHost.AutoSize = true;
             this.chkIgnoreVsHost.Checked = true;
             this.chkIgnoreVsHost.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkIgnoreVsHost.Location = new System.Drawing.Point(391, 321);
+            this.chkIgnoreVsHost.Location = new System.Drawing.Point(391, 156);
             this.chkIgnoreVsHost.Margin = new System.Windows.Forms.Padding(4);
             this.chkIgnoreVsHost.Name = "chkIgnoreVsHost";
             this.chkIgnoreVsHost.Size = new System.Drawing.Size(133, 21);
@@ -510,7 +537,7 @@ namespace FeedBuilder
             this.chkIgnoreSymbols.AutoSize = true;
             this.chkIgnoreSymbols.Checked = true;
             this.chkIgnoreSymbols.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkIgnoreSymbols.Location = new System.Drawing.Point(195, 321);
+            this.chkIgnoreSymbols.Location = new System.Drawing.Point(195, 156);
             this.chkIgnoreSymbols.Margin = new System.Windows.Forms.Padding(4);
             this.chkIgnoreSymbols.Name = "chkIgnoreSymbols";
             this.chkIgnoreSymbols.Size = new System.Drawing.Size(129, 21);
@@ -522,7 +549,7 @@ namespace FeedBuilder
             // cmdFeedXML
             // 
             this.cmdFeedXML.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmdFeedXML.Location = new System.Drawing.Point(1036, 65);
+            this.cmdFeedXML.Location = new System.Drawing.Point(1036, 61);
             this.cmdFeedXML.Margin = new System.Windows.Forms.Padding(4);
             this.cmdFeedXML.Name = "cmdFeedXML";
             this.cmdFeedXML.Size = new System.Drawing.Size(35, 28);
@@ -531,10 +558,22 @@ namespace FeedBuilder
             this.cmdFeedXML.UseVisualStyleBackColor = true;
             this.cmdFeedXML.Click += new System.EventHandler(this.cmdFeedXML_Click);
             // 
+            // txtFeedXML
+            // 
+            this.txtFeedXML.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtFeedXML.BackColor = System.Drawing.Color.White;
+            this.txtFeedXML.HelpfulText = "The file your application downloads to determine if there are updates";
+            this.txtFeedXML.Location = new System.Drawing.Point(195, 64);
+            this.txtFeedXML.Margin = new System.Windows.Forms.Padding(4, 4, 4, 10);
+            this.txtFeedXML.Name = "txtFeedXML";
+            this.txtFeedXML.Size = new System.Drawing.Size(832, 22);
+            this.txtFeedXML.TabIndex = 4;
+            // 
             // lblFeedXML
             // 
             this.lblFeedXML.AutoSize = true;
-            this.lblFeedXML.Location = new System.Drawing.Point(20, 71);
+            this.lblFeedXML.Location = new System.Drawing.Point(20, 67);
             this.lblFeedXML.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblFeedXML.Name = "lblFeedXML";
             this.lblFeedXML.Size = new System.Drawing.Size(128, 17);
@@ -552,6 +591,18 @@ namespace FeedBuilder
             this.cmdOutputFolder.Text = "...";
             this.cmdOutputFolder.UseVisualStyleBackColor = true;
             this.cmdOutputFolder.Click += new System.EventHandler(this.cmdOutputFolder_Click);
+            // 
+            // txtOutputFolder
+            // 
+            this.txtOutputFolder.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtOutputFolder.BackColor = System.Drawing.Color.White;
+            this.txtOutputFolder.HelpfulText = "The folder that contains the files you want to distribute";
+            this.txtOutputFolder.Location = new System.Drawing.Point(195, 30);
+            this.txtOutputFolder.Margin = new System.Windows.Forms.Padding(4, 4, 4, 10);
+            this.txtOutputFolder.Name = "txtOutputFolder";
+            this.txtOutputFolder.Size = new System.Drawing.Size(832, 22);
+            this.txtOutputFolder.TabIndex = 1;
             // 
             // lblOutputFolder
             // 
@@ -575,10 +626,7 @@ namespace FeedBuilder
             this.tsSeparator1,
             this.btnRefresh,
             this.btnOpenOutputs,
-            this.toolStripSeparator1,
-            this.btnPublish,
-            this.btnDeploy,
-            this.btnBuild});
+            this.toolStripSeparator1});
             this.tsMain.Location = new System.Drawing.Point(0, 0);
             this.tsMain.Name = "tsMain";
             this.tsMain.Size = new System.Drawing.Size(1123, 27);
@@ -656,37 +704,6 @@ namespace FeedBuilder
             this.toolStripSeparator1.Name = "toolStripSeparator1";
             this.toolStripSeparator1.Size = new System.Drawing.Size(6, 27);
             // 
-            // btnPublish
-            // 
-            this.btnPublish.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.btnPublish.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.btnPublish.Image = ((System.Drawing.Image)(resources.GetObject("btnPublish.Image")));
-            this.btnPublish.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnPublish.Name = "btnPublish";
-            this.btnPublish.Size = new System.Drawing.Size(67, 24);
-            this.btnPublish.Text = "Publish";
-            // 
-            // btnDeploy
-            // 
-            this.btnDeploy.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.btnDeploy.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.btnDeploy.Image = ((System.Drawing.Image)(resources.GetObject("btnDeploy.Image")));
-            this.btnDeploy.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnDeploy.Name = "btnDeploy";
-            this.btnDeploy.Size = new System.Drawing.Size(59, 24);
-            this.btnDeploy.Text = "Deploy";
-            this.btnDeploy.Click += new System.EventHandler(this.btnDeploy_Click);
-            // 
-            // btnBuild
-            // 
-            this.btnBuild.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.btnBuild.Image = ((System.Drawing.Image)(resources.GetObject("btnBuild.Image")));
-            this.btnBuild.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnBuild.Name = "btnBuild";
-            this.btnBuild.Size = new System.Drawing.Size(71, 24);
-            this.btnBuild.Text = "Build";
-            this.btnBuild.Click += new System.EventHandler(this.cmdBuild_Click);
-            // 
             // errorProvider1
             // 
             this.errorProvider1.ContainerControl = this;
@@ -702,37 +719,13 @@ namespace FeedBuilder
             this.fileSystemWatcher1.EnableRaisingEvents = true;
             this.fileSystemWatcher1.SynchronizingObject = this;
             // 
-            // txtFeedXML
-            // 
-            this.txtFeedXML.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtFeedXML.BackColor = System.Drawing.Color.White;
-            this.txtFeedXML.HelpfulText = "The file your application downloads to determine if there are updates";
-            this.txtFeedXML.Location = new System.Drawing.Point(195, 68);
-            this.txtFeedXML.Margin = new System.Windows.Forms.Padding(4, 4, 4, 10);
-            this.txtFeedXML.Name = "txtFeedXML";
-            this.txtFeedXML.Size = new System.Drawing.Size(832, 22);
-            this.txtFeedXML.TabIndex = 4;
-            // 
-            // txtOutputFolder
-            // 
-            this.txtOutputFolder.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtOutputFolder.BackColor = System.Drawing.Color.White;
-            this.txtOutputFolder.HelpfulText = "The folder that contains the files you want to distribute";
-            this.txtOutputFolder.Location = new System.Drawing.Point(195, 30);
-            this.txtOutputFolder.Margin = new System.Windows.Forms.Padding(4, 4, 4, 10);
-            this.txtOutputFolder.Name = "txtOutputFolder";
-            this.txtOutputFolder.Size = new System.Drawing.Size(832, 22);
-            this.txtOutputFolder.TabIndex = 1;
-            // 
             // frmMain
             // 
             this.AllowDrop = true;
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(1123, 613);
+            this.ClientSize = new System.Drawing.Size(1123, 675);
             this.Controls.Add(this.ToolStripContainer1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(4);
@@ -750,10 +743,10 @@ namespace FeedBuilder
             this.ToolStripContainer1.ResumeLayout(false);
             this.ToolStripContainer1.PerformLayout();
             this.panFiles.ResumeLayout(false);
-            this.grpSettings.ResumeLayout(false);
-            this.grpSettings.PerformLayout();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            this.grpSettings.ResumeLayout(false);
+            this.grpSettings.PerformLayout();
             this.tsMain.ResumeLayout(false);
             this.tsMain.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
@@ -765,7 +758,7 @@ namespace FeedBuilder
 		#endregion
 
 		private System.Windows.Forms.FolderBrowserDialog fbdOutputFolder;
-		private System.Windows.Forms.SaveFileDialog sfdFeedXML;
+		private System.Windows.Forms.FolderBrowserDialog sfdFeedXML;
 		private System.Windows.Forms.ImageList imgFiles;
 		private System.Windows.Forms.ListView lstFiles;
 		private System.Windows.Forms.ColumnHeader colFilename;
@@ -804,9 +797,6 @@ namespace FeedBuilder
         private ToolStripButton btnRefresh;
         private ToolStripButton btnOpenOutputs;
         private ToolStripSeparator toolStripSeparator1;
-        private ToolStripButton btnDeploy;
-        private ToolStripButton btnBuild;
-        private ToolStripButton btnPublish;
         private GroupBox groupBox1;
         private Button btnLoadServerConfig;
         private System.IO.FileSystemWatcher fileSystemWatcher1;
@@ -823,5 +813,8 @@ namespace FeedBuilder
         private Label label4;
         private Label label5;
         private TextBox txtOssSourceRoot;
+        private Button btnBuildUpdateFeed;
+        private Button btnUploadFiles;
+        private Button button2;
     }
 }

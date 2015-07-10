@@ -131,12 +131,7 @@ namespace FeedBuilder
 		#endregion
 
 		#region " Commands Events"
-
-		private void cmdBuild_Click(Object sender, EventArgs e)
-		{
-			Build();
-		}
-
+ 
 		private void btnOpenOutputs_Click(object sender, EventArgs e)
 		{
 			OpenOutputsFolder();
@@ -187,7 +182,7 @@ namespace FeedBuilder
 
 		private void cmdOutputFolder_Click(Object sender, EventArgs e)
 		{
-			fbdOutputFolder.SelectedPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+			fbdOutputFolder.SelectedPath = Directory.GetCurrentDirectory();
 			if (fbdOutputFolder.ShowDialog(this) != DialogResult.OK) return;
 			txtOutputFolder.Text = fbdOutputFolder.SelectedPath;
 			ReadFiles();
@@ -195,8 +190,9 @@ namespace FeedBuilder
 
 		private void cmdFeedXML_Click(Object sender, EventArgs e)
 		{
-			sfdFeedXML.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
-			if (sfdFeedXML.ShowDialog(this) == DialogResult.OK) txtFeedXML.Text = sfdFeedXML.FileName;
+			sfdFeedXML.SelectedPath = Directory.GetCurrentDirectory();
+			if (sfdFeedXML.ShowDialog(this) != DialogResult.OK) return;
+            txtFeedXML.Text = sfdFeedXML.SelectedPath + @"\UpdateFeed.xml";
 		}
 
 		private void chkIgnoreSymbols_CheckedChanged(object sender, EventArgs e)
@@ -516,11 +512,6 @@ namespace FeedBuilder
 			}
 		}
 
-        private void btnDeploy_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void btnLoadServerConfig_Click(object sender, EventArgs e)
         {
             OpenFileDialog dlg = new OpenFileDialog()
@@ -585,6 +576,11 @@ namespace FeedBuilder
             pf.OssSourceRoot = txtOssSourceRoot.Text;
 
             pf.SaveToFile(serverConfigFilePath);
+        }
+
+        private void btnBuildUpdateFeed_Click(object sender, EventArgs e)
+        {
+            Build();
         }
     }
 }
