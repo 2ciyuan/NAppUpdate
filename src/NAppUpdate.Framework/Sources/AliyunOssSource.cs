@@ -71,14 +71,22 @@ namespace NAppUpdate.Framework.Sources
             {
                 //aliyun对于"a//b"这样的路径不认，只认"a/b"
                 string fullFileKey = (SourceRoot + "/" + baseKey + "/" + fileKey).Replace("//", "/");
-                AliyunUploadRequest updateRequest = new AliyunUploadRequest(BucketName, fullFileKey
+                AliyunUploadRequest uploadRequest = new AliyunUploadRequest(BucketName, fullFileKey
                     , fileLocation);
-                AliyunTransfer.PutObejct(updateRequest);
+                uploadRequest.TranseferFileEvent += delegate (long transferedBytes, long totalBytes)
+                {
+                    onProgress(new UpdateProgressInfo
+                    {
+                        Percentage = (totalBytes == 0) ? 0 : (int)(transferedBytes * 100 / totalBytes),
+                        StillWorking = (transferedBytes != totalBytes),
+                    });
+                };
+                AliyunTransfer.PutObejct(uploadRequest);
                 return true;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-
+                string a = ex.ToString();
             }
             return false;
         }

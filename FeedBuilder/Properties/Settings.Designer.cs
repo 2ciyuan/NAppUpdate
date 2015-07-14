@@ -167,7 +167,23 @@ namespace FeedBuilder.Properties {
                 this["IgnoreVsHosting"] = value;
             }
         }
-        
+
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Configuration.SettingsProviderAttribute(typeof(FeedBuilder.FeedBuilderSettingsProvider))]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool IgnoreUpdateFeed
+        {
+            get
+            {
+                return ((bool)(this["IgnoreUpdateFeed"]));
+            }
+            set
+            {
+                this["IgnoreUpdateFeed"] = value;
+            }
+        }
+
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Configuration.SettingsProviderAttribute(typeof(FeedBuilder.FeedBuilderSettingsProvider))]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]

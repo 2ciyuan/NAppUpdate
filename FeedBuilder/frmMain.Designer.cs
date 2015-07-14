@@ -44,6 +44,7 @@ namespace FeedBuilder
             this.colSize = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.colDate = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.colHash = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.colUploadProgress = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.imgFiles = new System.Windows.Forms.ImageList(this.components);
             this.fbdOutputFolder = new System.Windows.Forms.FolderBrowserDialog();
             this.sfdFeedXML = new System.Windows.Forms.FolderBrowserDialog();
@@ -67,6 +68,7 @@ namespace FeedBuilder
             this.labelServerConfigPath = new System.Windows.Forms.Label();
             this.btnLoadServerConfig = new System.Windows.Forms.Button();
             this.grpSettings = new System.Windows.Forms.GroupBox();
+            this.chkIgnoreUpdateFeed = new System.Windows.Forms.CheckBox();
             this.btnBuildUpdateFeed = new System.Windows.Forms.Button();
             this.chkCleanUp = new System.Windows.Forms.CheckBox();
             this.chkCopyFiles = new System.Windows.Forms.CheckBox();
@@ -80,10 +82,8 @@ namespace FeedBuilder
             this.chkIgnoreVsHost = new System.Windows.Forms.CheckBox();
             this.chkIgnoreSymbols = new System.Windows.Forms.CheckBox();
             this.cmdFeedXML = new System.Windows.Forms.Button();
-            this.txtFeedXML = new FeedBuilder.HelpfulTextBox(this.components);
             this.lblFeedXML = new System.Windows.Forms.Label();
             this.cmdOutputFolder = new System.Windows.Forms.Button();
-            this.txtOutputFolder = new FeedBuilder.HelpfulTextBox(this.components);
             this.lblOutputFolder = new System.Windows.Forms.Label();
             this.tsMain = new System.Windows.Forms.ToolStrip();
             this.btnNew = new System.Windows.Forms.ToolStripButton();
@@ -97,6 +97,8 @@ namespace FeedBuilder
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.fileSystemWatcher1 = new System.IO.FileSystemWatcher();
+            this.txtFeedXML = new FeedBuilder.HelpfulTextBox(this.components);
+            this.txtOutputFolder = new FeedBuilder.HelpfulTextBox(this.components);
             this.ToolStripContainer1.ContentPanel.SuspendLayout();
             this.ToolStripContainer1.TopToolStripPanel.SuspendLayout();
             this.ToolStripContainer1.SuspendLayout();
@@ -116,7 +118,8 @@ namespace FeedBuilder
             this.colVersion,
             this.colSize,
             this.colDate,
-            this.colHash});
+            this.colHash,
+            this.colUploadProgress});
             this.lstFiles.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.lstFiles.Location = new System.Drawing.Point(16, 181);
             this.lstFiles.Margin = new System.Windows.Forms.Padding(0);
@@ -135,24 +138,29 @@ namespace FeedBuilder
             // colVersion
             // 
             this.colVersion.Text = "Version";
-            this.colVersion.Width = 80;
+            this.colVersion.Width = 59;
             // 
             // colSize
             // 
             this.colSize.Text = "Size";
             this.colSize.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.colSize.Width = 80;
+            this.colSize.Width = 77;
             // 
             // colDate
             // 
             this.colDate.Text = "Date";
             this.colDate.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.colDate.Width = 120;
+            this.colDate.Width = 135;
             // 
             // colHash
             // 
             this.colHash.Text = "Hash";
-            this.colHash.Width = 300;
+            this.colHash.Width = 358;
+            // 
+            // colUploadProgress
+            // 
+            this.colUploadProgress.Text = "上传进度";
+            this.colUploadProgress.Width = 111;
             // 
             // imgFiles
             // 
@@ -254,6 +262,7 @@ namespace FeedBuilder
             this.btnUploadFiles.TabIndex = 19;
             this.btnUploadFiles.Text = "上传文件";
             this.btnUploadFiles.UseVisualStyleBackColor = true;
+            this.btnUploadFiles.Click += new System.EventHandler(this.btnUploadFiles_Click);
             // 
             // txtOssSourceRoot
             // 
@@ -376,6 +385,7 @@ namespace FeedBuilder
             // 
             // grpSettings
             // 
+            this.grpSettings.Controls.Add(this.chkIgnoreUpdateFeed);
             this.grpSettings.Controls.Add(this.btnBuildUpdateFeed);
             this.grpSettings.Controls.Add(this.chkCleanUp);
             this.grpSettings.Controls.Add(this.lstFiles);
@@ -403,6 +413,20 @@ namespace FeedBuilder
             this.grpSettings.Size = new System.Drawing.Size(1091, 382);
             this.grpSettings.TabIndex = 1;
             this.grpSettings.TabStop = false;
+            // 
+            // chkIgnoreUpdateFeed
+            // 
+            this.chkIgnoreUpdateFeed.AutoSize = true;
+            this.chkIgnoreUpdateFeed.Checked = true;
+            this.chkIgnoreUpdateFeed.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkIgnoreUpdateFeed.Enabled = false;
+            this.chkIgnoreUpdateFeed.Location = new System.Drawing.Point(597, 156);
+            this.chkIgnoreUpdateFeed.Margin = new System.Windows.Forms.Padding(4);
+            this.chkIgnoreUpdateFeed.Name = "chkIgnoreUpdateFeed";
+            this.chkIgnoreUpdateFeed.Size = new System.Drawing.Size(132, 21);
+            this.chkIgnoreUpdateFeed.TabIndex = 19;
+            this.chkIgnoreUpdateFeed.Text = "UpdateFeed.xml";
+            this.chkIgnoreUpdateFeed.UseVisualStyleBackColor = true;
             // 
             // btnBuildUpdateFeed
             // 
@@ -558,18 +582,6 @@ namespace FeedBuilder
             this.cmdFeedXML.UseVisualStyleBackColor = true;
             this.cmdFeedXML.Click += new System.EventHandler(this.cmdFeedXML_Click);
             // 
-            // txtFeedXML
-            // 
-            this.txtFeedXML.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtFeedXML.BackColor = System.Drawing.Color.White;
-            this.txtFeedXML.HelpfulText = "The file your application downloads to determine if there are updates";
-            this.txtFeedXML.Location = new System.Drawing.Point(195, 64);
-            this.txtFeedXML.Margin = new System.Windows.Forms.Padding(4, 4, 4, 10);
-            this.txtFeedXML.Name = "txtFeedXML";
-            this.txtFeedXML.Size = new System.Drawing.Size(832, 22);
-            this.txtFeedXML.TabIndex = 4;
-            // 
             // lblFeedXML
             // 
             this.lblFeedXML.AutoSize = true;
@@ -591,18 +603,6 @@ namespace FeedBuilder
             this.cmdOutputFolder.Text = "...";
             this.cmdOutputFolder.UseVisualStyleBackColor = true;
             this.cmdOutputFolder.Click += new System.EventHandler(this.cmdOutputFolder_Click);
-            // 
-            // txtOutputFolder
-            // 
-            this.txtOutputFolder.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtOutputFolder.BackColor = System.Drawing.Color.White;
-            this.txtOutputFolder.HelpfulText = "The folder that contains the files you want to distribute";
-            this.txtOutputFolder.Location = new System.Drawing.Point(195, 30);
-            this.txtOutputFolder.Margin = new System.Windows.Forms.Padding(4, 4, 4, 10);
-            this.txtOutputFolder.Name = "txtOutputFolder";
-            this.txtOutputFolder.Size = new System.Drawing.Size(832, 22);
-            this.txtOutputFolder.TabIndex = 1;
             // 
             // lblOutputFolder
             // 
@@ -719,6 +719,30 @@ namespace FeedBuilder
             this.fileSystemWatcher1.EnableRaisingEvents = true;
             this.fileSystemWatcher1.SynchronizingObject = this;
             // 
+            // txtFeedXML
+            // 
+            this.txtFeedXML.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtFeedXML.BackColor = System.Drawing.Color.White;
+            this.txtFeedXML.HelpfulText = "The file your application downloads to determine if there are updates";
+            this.txtFeedXML.Location = new System.Drawing.Point(195, 64);
+            this.txtFeedXML.Margin = new System.Windows.Forms.Padding(4, 4, 4, 10);
+            this.txtFeedXML.Name = "txtFeedXML";
+            this.txtFeedXML.Size = new System.Drawing.Size(832, 22);
+            this.txtFeedXML.TabIndex = 4;
+            // 
+            // txtOutputFolder
+            // 
+            this.txtOutputFolder.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtOutputFolder.BackColor = System.Drawing.Color.White;
+            this.txtOutputFolder.HelpfulText = "The folder that contains the files you want to distribute";
+            this.txtOutputFolder.Location = new System.Drawing.Point(195, 30);
+            this.txtOutputFolder.Margin = new System.Windows.Forms.Padding(4, 4, 4, 10);
+            this.txtOutputFolder.Name = "txtOutputFolder";
+            this.txtOutputFolder.Size = new System.Drawing.Size(832, 22);
+            this.txtOutputFolder.TabIndex = 1;
+            // 
             // frmMain
             // 
             this.AllowDrop = true;
@@ -816,5 +840,7 @@ namespace FeedBuilder
         private Button btnBuildUpdateFeed;
         private Button btnUploadFiles;
         private Button button2;
+        private ColumnHeader colUploadProgress;
+        private CheckBox chkIgnoreUpdateFeed;
     }
 }

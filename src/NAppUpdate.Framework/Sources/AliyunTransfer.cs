@@ -203,12 +203,13 @@ namespace NAppUpdate.Framework.Sources
 
         public PutObjectResult PutObejct(AliyunUploadRequest uploadRequest)
         {
+            var fileHash = NAppUpdate.Framework.Utils.FileChecksum.GetSHA256Checksum(uploadRequest.file);
             //网上的文件是正确的了，不上传了，相当于文件级别的断点续传
-//             if (GetObjectEtag(uploadRequest.bucketName, uploadRequest.key).ToUpper()
-//                  == NewBotUtil.UtilHelpers.CalcFileChecksum(uploadRequest.file).ToUpper())
-//             {
-//                 return null;
-//             }
+            if (GetObjectEtag(uploadRequest.bucketName, uploadRequest.key).ToUpper()
+                 == fileHash)
+            {
+                return null;
+            }
 
             PutObjectResult ret = null;
             using (FileStream fs = new FileStream(uploadRequest.file, FileMode.Open))
@@ -224,7 +225,7 @@ namespace NAppUpdate.Framework.Sources
                     new ObjectMetadata()
                     {
                         ContentLength = fs.Length,
-//                         ETag = NewBotUtil.UtilHelpers.CalcFileChecksum(uploadRequest.file), //ETag记录MD5值，用于短点续传的判断
+                        ETag = fileHash,                                    //ETag记录SHA256值，用于短点续传的判断
                     }
                     );
             }
