@@ -635,53 +635,72 @@ namespace FeedBuilder
 
         private void btnUploadFiles_Click(object sender, EventArgs e)
         {
-            if(_serverProfile == null)
+            try
             {
-                MessageBox.Show("请先加载服务器配置!");
-                return;
-            }
-            var aot = new AliyunOSSTransfer(_serverProfile.OssEndPoint
-                , _serverProfile.OssAccessKeyID, _serverProfile.OssAccessKeySecret);
-            var aos = new AliyunOssSource(aot, _serverProfile.OssBucketName, _serverProfile.OssSourceRoot);
-
-            int uploadProgressSubItemIndex = 5;                 //很遗憾，C#有bug，没有办法根据ColumnName进行索引
-            foreach (ListViewItem thisItem in lstFiles.Items)
-            {
-                //先清除上次的上传标志
-                thisItem.SubItems[uploadProgressSubItemIndex].Text = "-.-";
-
-                //没有选中的文件不上传
-                if (!thisItem.Checked)
+                if (_serverProfile == null)
                 {
-                    thisItem.SubItems[uploadProgressSubItemIndex].Text = "不上传";
-                    continue;
+                    MessageBox.Show("请先加载服务器配置!");
+                    return;
                 }
 
-                //跨线程更新listView的文字
-                Action<string> notifySubitemProgressText = (notifyText) =>
-                {
-                    lstFiles.BeginInvoke((MethodInvoker)delegate ()
-                    {
-                        thisItem.SubItems[uploadProgressSubItemIndex].Text = notifyText;
-                    });
-                };
+                //清除临时目录
+                string tempDir = Directory.GetCurrentDirectory() + @"\temp\";
+                if (Directory.Exists(tempDir)) { Directory.Delete(tempDir, true); }
 
-                //更新进度
-                Action<UpdateProgressInfo> onProgress = (updateProgressInfo) =>
-                {
-                    notifySubitemProgressText(string.Format("{0}%", updateProgressInfo.Percentage));
-                };
 
-                FileInfoEx fileInfo = (FileInfoEx)thisItem.Tag;
-                //线程上传，这样才能及时更新进度
-                Thread uploadThread = new Thread(delegate () 
+                var aot = new AliyunOSSTransfer(_serverProfile.OssEndPoint
+                    , _serverProfile.OssAccessKeyID, _serverProfile.OssAccessKeySecret);
+                var aos = new AliyunOssSource(aot, _serverProfile.OssBucketName, _serverProfile.OssSourceRoot);
+
+                int uploadProgressSubItemIndex = 5;                 //很遗憾，C#有bug，没有办法根据ColumnName进行索引
+                foreach (ListViewItem thisItem in lstFiles.Items)
                 {
-                    if (aos.DeployData(fileInfo.FileInfo.Name, "", onProgress, fileInfo.FileInfo.FullName) == false)
+                    //先清除上次的上传标志
+                    thisItem.SubItems[uploadProgressSubItemIndex].Text = "-.-";
+
+                    //没有选中的文件不上传
+                    if (!thisItem.Checked)
                     {
-                        notifySubitemProgressText("失败");
+                        thisItem.SubItems[uploadProgressSubItemIndex].Text = "不上传";
+                        continue;
                     }
-                });
-                uploadThread.Start();
+
+                    //跨线程更新listView的文字
+                    Action<string> notifySubitemProgressText = (notifyText) =>
+                    {
+                        lstFiles.BeginInvoke((MethodInvoker)delegate ()
+                        {
+                            thisItem.SubItems[uploadProgressSubItemIndex].Text = notifyText;
+                        });
+                    };
+
+                    //更新进度
+                    Action<UpdateProgressInfo> onProgress = (updateProgressInfo) =>
+                    {
+                        notifySubitemProgressText(string.Format("{0}%", updateProgressInfo.Percentage));
+                    };
+
+                    FileInfoEx fileInfo = (FileInfoEx)thisItem.Tag;
+
+                    //将文件拷贝到临时文件夹里面，避免要上传的文件被占用
+                    Directory.CreateDirectory(tempDir);
+                    string tempFilePath = tempDir + fileInfo.FileInfo.Name;
+                    File.Copy(fileInfo.FileInfo.FullName, tempFilePath, true);
+
+                    //线程上传，这样才能及时更新进度
+                    Thread uploadThread = new Thread(delegate ()
+                    {
+                        if (aos.DeployData(fileInfo.FileInfo.Name, "", onProgress, tempFilePath) == false)
+                        {
+                            notifySubitemProgressText("失败");
+                        }
+                    });
+                    uploadThread.Start();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(string.Format("上传文件出错:%s", ex.Message));
             }
         }
     }
