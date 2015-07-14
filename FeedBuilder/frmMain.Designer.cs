@@ -99,6 +99,7 @@ namespace FeedBuilder
             this.fileSystemWatcher1 = new System.IO.FileSystemWatcher();
             this.txtFeedXML = new FeedBuilder.HelpfulTextBox(this.components);
             this.txtOutputFolder = new FeedBuilder.HelpfulTextBox(this.components);
+            this.chkIgnoreTempDirectory = new System.Windows.Forms.CheckBox();
             this.ToolStripContainer1.ContentPanel.SuspendLayout();
             this.ToolStripContainer1.TopToolStripPanel.SuspendLayout();
             this.ToolStripContainer1.SuspendLayout();
@@ -385,6 +386,7 @@ namespace FeedBuilder
             // 
             // grpSettings
             // 
+            this.grpSettings.Controls.Add(this.chkIgnoreTempDirectory);
             this.grpSettings.Controls.Add(this.chkIgnoreUpdateFeed);
             this.grpSettings.Controls.Add(this.btnBuildUpdateFeed);
             this.grpSettings.Controls.Add(this.chkCleanUp);
@@ -743,6 +745,20 @@ namespace FeedBuilder
             this.txtOutputFolder.Size = new System.Drawing.Size(832, 22);
             this.txtOutputFolder.TabIndex = 1;
             // 
+            // chkIgnoreTempDirectory
+            // 
+            this.chkIgnoreTempDirectory.AutoSize = true;
+            this.chkIgnoreTempDirectory.Checked = true;
+            this.chkIgnoreTempDirectory.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkIgnoreTempDirectory.Enabled = false;
+            this.chkIgnoreTempDirectory.Location = new System.Drawing.Point(803, 156);
+            this.chkIgnoreTempDirectory.Margin = new System.Windows.Forms.Padding(4);
+            this.chkIgnoreTempDirectory.Name = "chkIgnoreTempDirectory";
+            this.chkIgnoreTempDirectory.Size = new System.Drawing.Size(89, 21);
+            this.chkIgnoreTempDirectory.TabIndex = 20;
+            this.chkIgnoreTempDirectory.Text = "tempĿ¼";
+            this.chkIgnoreTempDirectory.UseVisualStyleBackColor = true;
+            // 
             // frmMain
             // 
             this.AllowDrop = true;
@@ -842,5 +858,6 @@ namespace FeedBuilder
         private Button button2;
         private ColumnHeader colUploadProgress;
         private CheckBox chkIgnoreUpdateFeed;
+        private CheckBox chkIgnoreTempDirectory;
     }
 }

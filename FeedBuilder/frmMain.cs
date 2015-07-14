@@ -22,6 +22,7 @@ namespace FeedBuilder
 
         #region " Private constants/variables"
         FeedBuilder.ServerProfile.ServerProfile _serverProfile = null;
+        string _uploadTempDirectory = Directory.GetCurrentDirectory() + @"\temp\";
 
         private const string DialogFilter = "Feed configuration files (*.config)|*.config|All files (*.*)|*.*";
         private const string DefaultFileName = "FeedBuilder.config";
@@ -91,6 +92,7 @@ namespace FeedBuilder
             chkIgnoreSymbols.Checked = Settings.Default.IgnoreDebugSymbols;
             chkIgnoreVsHost.Checked = Settings.Default.IgnoreVsHosting;
             chkIgnoreUpdateFeed.Checked = Settings.Default.IgnoreUpdateFeed;
+            chkIgnoreTempDirectory.Checked = Settings.Default.IgnoreTempDirectory;
             chkCopyFiles.Checked = Settings.Default.CopyFiles;
             chkCleanUp.Checked = Settings.Default.CleanUp;
             labelServerConfigPath.Text = Settings.Default.ServerConfigFilePath;
@@ -122,6 +124,7 @@ namespace FeedBuilder
             Settings.Default.IgnoreDebugSymbols = chkIgnoreSymbols.Checked;
             Settings.Default.IgnoreVsHosting = chkIgnoreVsHost.Checked;
             Settings.Default.IgnoreUpdateFeed = chkIgnoreUpdateFeed.Checked;
+            Settings.Default.IgnoreTempDirectory = chkIgnoreTempDirectory.Checked;
             Settings.Default.CopyFiles = chkCopyFiles.Checked;
             Settings.Default.CleanUp = chkCleanUp.Checked;
             Settings.Default.ServerConfigFilePath = labelServerConfigPath.Text;
@@ -508,6 +511,14 @@ namespace FeedBuilder
             if ((chkIgnoreSymbols.Checked && Path.GetExtension(filename) == ".pdb")) return true;
             if ((chkIgnoreVsHost.Checked && filename.ToLower().Contains("vshost.exe"))) return true;
             if ((chkIgnoreUpdateFeed.Checked && filename.ToLower().Contains("updatefeed.xml"))) return true;
+
+            if (chkIgnoreTempDirectory.Checked)
+            {
+                var fileInTempDirectory = Directory.GetFiles(_uploadTempDirectory, "*.*", SearchOption.AllDirectories)
+                    .Any(file => file == filename);
+                if(fileInTempDirectory) { return true; }
+            }
+
             return false;
         }
 
@@ -644,8 +655,7 @@ namespace FeedBuilder
                 }
 
                 //清除临时目录
-                string tempDir = Directory.GetCurrentDirectory() + @"\temp\";
-                if (Directory.Exists(tempDir)) { Directory.Delete(tempDir, true); }
+                if (Directory.Exists(_uploadTempDirectory)) { Directory.Delete(_uploadTempDirectory, true); }
 
 
                 var aot = new AliyunOSSTransfer(_serverProfile.OssEndPoint
@@ -683,8 +693,8 @@ namespace FeedBuilder
                     FileInfoEx fileInfo = (FileInfoEx)thisItem.Tag;
 
                     //将文件拷贝到临时文件夹里面，避免要上传的文件被占用
-                    Directory.CreateDirectory(tempDir);
-                    string tempFilePath = tempDir + fileInfo.FileInfo.Name;
+                    Directory.CreateDirectory(_uploadTempDirectory);
+                    string tempFilePath = _uploadTempDirectory + fileInfo.FileInfo.Name;
                     File.Copy(fileInfo.FileInfo.FullName, tempFilePath, true);
 
                     //线程上传，这样才能及时更新进度
